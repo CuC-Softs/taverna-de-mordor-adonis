@@ -27,7 +27,7 @@ export default class BoardsController {
     return response.redirect('/boards')
   }
 
-  public async show({ response, view, params, auth }: HttpContextContract) {
+  public async show({ response, view, auth, params }: HttpContextContract) {
     const board = await Board.find(params.id)
     if (!board) {
       return response.notFound('Board not found')

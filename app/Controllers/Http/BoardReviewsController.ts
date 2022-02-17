@@ -3,7 +3,7 @@ import Board from 'App/Models/Board'
 import StoreValidator from 'App/Validators/Review/StoreValidator'
 
 export default class BoardReviewsController {
-  public async store({ request, params, response, bouncer, session }: HttpContextContract) {
+  public async store({ request, params, response, session, bouncer }: HttpContextContract) {
     const board = await Board.find(params.board_id)
     if (!board) {
       return response.notFound('Board not found!')

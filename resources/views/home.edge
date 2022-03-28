@@ -5,156 +5,69 @@
 @endsection
 
 @section('content')
-  <section>
-    <div class="relative shadow-lg">
-      <div class="absolute w-full h-full opacity-20 filter blur-sm contrast-100  bg-black hover:opacity-40 transition ease-in-out duration-150"></div>
-      <img class="max-h-96 w-full object-cover" src="{{asset('assets/images/cover-rpg.jpg')}}" alt="Imagem de jogadores de RPG">
-      <h1 class="absolute cursor-default pointer-events-none left-0 right-0 bottom-3 text-center text-xl text-gray-100 font-bold mb-2 sm:text-5xl">Taverna de Mordor</h1>
+
+  <div x-data="scrollToId">
+    <section>
+      <div class="relative shadow-lg">
+        <div class="absolute w-full h-full opacity-20 filter blur-sm contrast-100  bg-black transition ease-in-out duration-150"></div>
+        <h1 class="absolute cursor-default pointer-events-none left-0 right-0 top-4 text-center text-3xl text-gray-100 font-title mb-2 sm:text-8xl">Taverna de Mordor</h1>
+        <img class="max-h-96 w-full object-cover" src="{{asset('assets/images/tiamat-header.jpg')}}">
+        <h2 class="absolute cursor-default pointer-events-none left-0 right-0 bottom-5 text-center text-sm text-gray-300 font-title mb-2 sm:text-5xl uppercase">Deixe os dados decidirem seu destino</h2>
+      </div>
+    </section>
+    <div class="absolute z-40 w-full text-center -mt-4">
+      <a @click="scrollToIdOnClick">
+        <i class="fas fa-chevron-circle-down text-3xl text-gray-400" href="#article"></i>
+      </a>
     </div>
-  </section>
-  <div>
-    <article class="py-5 bg-gray-600 sm:px-10 sm:py-10">
-      <div class="container rounded-md mx-auto bg-white overflow-hidden">
-        <div class="flex justify-between">
-          <div class="w-2/3 h-auto relative flex flex-grow top-0 bottom-0 bg-cover bg-tabuleiro-rpg">
-            <div class="bg-black opacity-40 absolute w-full h-full"></div>
-            <div class="w-100 justify-center mx-auto z-30 my-auto p-3 sm:p-10">
-              <span class="px-3 text-lg sm:text-2xl z-30 text-center text-white">
-                <strong class="z-30">A Regra de Ouro do RPG:</strong> "Para o Bem e Para o Mal... Diversão até o final!"
-              </span>
-            </div>
+    <article id="article">
+      <div class="relative shadow-lg">
+        <img class="w-full object-cover relative" src="{{asset('assets/images/sky-background.png')}}">
+        <div class="absolute top-0 bottom-0 mt-32">
+          <img src="{{asset('assets/images/star-trek.png')}}" alt="">
+          {{--  <img src="{{asset('assets/images/star-trek-svg.svg')}}">  --}}
+          <div class="-mt-24 h-auto p-2 ml-28 bg-gray-900 max-w-full font-title mr-2 text-gray-400 text-3xs text-justify">
+            <p>&emsp; Enfrente novos desafios em uma terra longíqua, lute contra um ataque zumbi ou explore a galáxia. Não há limite algum!</p>
           </div>
-          <div class="w-2/3 ml-6 sm:ml-12 flex flex-col py-32 pr-5 sm:pr-0">
-            <br>
-            <strong class="text-xl sm:text-3xl text-gray-800">
-              <i class="fas fa-dice-d20 text-2xl mr-3"></i>
-              Oque fazemos?
-            </strong>
-            <br>
-            <br>
-            <p class="text-lg font-sans">
-              O Site da taverna de mordor surgiu com o objetivo de unir jogar com
-              organizar os jogos, gerenciar mesas e participar de eventos
-            </p>
-            <br>
-            <br>
-            <strong class="text-xl sm:text-3xl text-gray-800">
-              <i class="far fa-flag text-2xl mr-3"></i>
-              Qual a nossa meta?
-            </strong>
-            <br>
-            <br>
-            <p class="text-lg font-sans">
-              Dar total autonomia para o mestre gerenciar sua mesa e para os admistradores
-              terem uma visão geral sobre os jogadores quanto os mestres e as mesas
-            </p>
+        </div>
+        <div>
+          <div class="absolute bottom-0 mb-36 left-3 w-64 max-w-full p-2 bg-gray-900 font-title text-gray-400 text-3xs text-left">
+            <p>O Role Playing Game (RPG) é um tipo de jogo em que você interpreta o seu personagem em um mundo diferente, decidindo o seu caminho por meio de interpretação e dados.</p>
           </div>
+          <img class="absolute bottom-0 right-0" src="{{asset('assets/images/kirito.png')}}" alt="">
         </div>
       </div>
     </article>
-    <section>
-      <div class="container mx-auto mt-5 sm:mt-8">
-        <h3 class="text-lg font-bold sm:text-3xl text-center text-gray-800">
-          Conheça o Mundo do RPG
-        </h3>
-        <br>
-        <div class="hidden grid-flow-col grid-rows-2 grid-cols-3 gap-5 sm:grid">
-          <div class="bg-vampire-the-mascarade bg-center rounded-md overflow-hidden">
-            <a href="https://www.worldofdarkness.com/vampire-the-masquerade">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl bg-gradient-to-b w-full from-transparent to-black p-10">
-                  Vampiro a Máscara
-                </span>
-              </div>
-            </a>
+    <div class="absolute z-40 w-full text-center -mt-4">
+      <a @click="scrollToIdOnClick">
+        <i class="fas fa-chevron-circle-down text-3xl text-gray-400" href="#section"></i>
+      </a>
+    </div>
+    <section id="section">
+      <div class="relative shadow-lg">
+        <div class="absolute w-full h-full opacity-20 filter blur-sm contrast-100  bg-black transition ease-in-out duration-150"></div>
+        <img class="w-full object-cover" src="{{asset('assets/images/cyberpunk-background.jpg')}}">
+        <div class="absolute z-40 top-0 mt-20 content-center items-center w-60">
+          <div class="mx-auto rounded-md bg-gray-600 w-48 py-0.5 mb-6" style="background: rgba(17, 24, 39, 0.8);">
+            <p class="uppercase text-gray-400 font-title text-center text-xs">
+              Entre no nosso grupo do whatsapp
+            </p>
           </div>
-          <div class="col-start-3 bg-al-rpg-club bg-center bg-cover rounded-md overflow-hidden">
-            <a href="https://www.instagram.com/alrpgcluboficial/">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  AL RPG CLUB
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="bg-logo rounded-md overflow-hidden">
-            <a href="https://chat.whatsapp.com/Cmcaoa8QIb5EJ662FZKZVv">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white ">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  Faça parte do grupo no whatsapp
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="bg-cyberpunk rounded-md overflow-hidden">
-            <a href="/events">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  Comece a experiência
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="row-start-1 h-52 col-start-2 col-span-2 bg-dungeons-and-dragons rounded-md overflow-hidden">
-            <a href="https://dnd.wizards.com/">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  Dungeons and Dragons
-                </span>
-              </div>
-            </a>
-          </div>
+          <button class="mx-auto block mb-5 px-8 py-1 rounded-md text-white space-x-1.5 text-sm" style="background: #34DC54">
+            <i class="fab fa-whatsapp"></i>
+            <span>Entrar</span>
+          </button>
+          <p class="mx-auto text-white text-2xs text-center w-52 font-semibold">
+            No nosso grupo você pode receber informações exclusivas quando elas saírem
+          </p>
         </div>
-        <div class="grid grid-cols-2 gap-2 sm:hidden">
-          <div class="bg-vampire-the-mascarade bg-center rounded-md overflow-hidden">
-            <a href="https://www.worldofdarkness.com/vampire-the-masquerade">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl bg-gradient-to-b w-full from-transparent to-black p-10">
-                  Vampiro a Máscara
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="bg-al-rpg-club bg-center bg-cover rounded-md overflow-hidden">
-            <a href="https://www.instagram.com/alrpgcluboficial/">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  AL RPG CLUB
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="bg-cyberpunk rounded-md overflow-hidden">
-            <a href="/events">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  Comece a experiência
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="bg-dungeons-and-dragons rounded-md overflow-hidden">
-            <a href="https://dnd.wizards.com/">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  Dungeons and Dragons
-                </span>
-              </div>
-            </a>
-          </div>
-          <div class="bg-logo col-start-1 rounded-md overflow-hidden col-span-2">
-            <a href="https://chat.whatsapp.com/Cmcaoa8QIb5EJ662FZKZVv">
-              <div class="w-full h-full flex items-end text-center justify-center font-bold text-white ">
-                <span class="text-2xl w-full bg-gradient-to-b from-transparent to-black p-10">
-                  Faça parte do grupo no whatsapp
-                </span>
-              </div>
-            </a>
-          </div>
+        <div class="absolute bottom-0 right-0">
+          <img src="{{asset('assets/images/keanu-reeves.png') }}" alt="">
         </div>
       </div>
     </section>
   </div>
+
 @endsection
 
 @section('extra-script')

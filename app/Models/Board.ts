@@ -10,12 +10,15 @@ import {
   manyToMany,
   ManyToMany,
   ModelQueryBuilderContract,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Event from './Event'
 import Users from './User'
 import User from './User'
 import System from './System'
 import Review from './Review'
+import EventBoard from './EventBoard'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -77,8 +80,13 @@ export default class Board extends BaseModel {
     q.preload('master')
     q.preload('system')
     q.preload('reviews')
+    q.preload('eventBoards')
   }
 
+  @hasMany(() => EventBoard, {
+    localKey: 'id',
+  })
+  public eventBoards: HasMany<typeof EventBoard>
 
   @computed()
   public get avaluation(): number {
@@ -98,8 +106,85 @@ export default class Board extends BaseModel {
     return review
   }
 
-  @column()
-  public currentSection: number
+  @computed()
+  public get nextSession() {
+    const session = this.sessions
+      .filter(
+        (s) =>
+          new Date(s.date.toString().replace(/-/g, '/')).getTime() + s.time > new Date().getTime()
+      )
+      .sort((a, b) => {
+        if (
+          new Date(a.date.toString().replace(/-/g, '/')).getTime() + a.time <
+          new Date(b.date.toString().replace(/-/g, '/')).getTime() + b.time
+        ) {
+          return -1
+        } else {
+          return 0
+        }
+      })[1]
+
+    if (session) {
+      const date = new Date(session.date.toString().replace(/-/g, '/'))
+        .toJSON()
+        .substring(0, 10)
+        .replace(/-/g, '/')
+        .split('/')
+        .reverse()
+        .toString()
+        .replace(/,/g, '/')
+
+      const time = new Date(session.time * 1000).toISOString().substring(11, 16)
+      const timeWithPeriod = parseInt(time.substring(0, 2), 10) >= 12 ? time + ' PM' : time + ' AM'
+      return date + ' - ' + timeWithPeriod
+    }
+
+    return 'Não definida'
+  }
+
+  @computed()
+  public get sessions() {
+    const eventBoards = this.eventBoards.filter(async (eb) => {
+      const event = await Event.find(eb.eventId)
+
+      return (
+        eb.boardId === this.id &&
+        new Date(event!.date.toString().replace(/-/g, '/')).getTime() > new Date().getTime()
+      )
+    })
+
+    const sessions = eventBoards
+      .map((eb) =>
+        eb.sessions.map((s) => {
+          s.$extras['event_id'] = eb.eventId
+          return s
+        })
+      )
+      .flat()
+    return sessions
+  }
+
+  @computed()
+  public get currentSession() {
+    return this.sessions.length > 0
+      ? this.sessions
+          .filter(
+            (s) =>
+              new Date(s.date.toString().replace(/-/g, '/')).getTime() + s.time >
+              new Date().getTime()
+          )
+          .sort((a, b) => {
+            if (
+              new Date(a.date.toString().replace(/-/g, '/')).getTime() + a.time <
+              new Date(b.date.toString().replace(/-/g, '/')).getTime() + b.time
+            ) {
+              return -1
+            } else {
+              return 0
+            }
+          })[0].id
+      : 0
+  }
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

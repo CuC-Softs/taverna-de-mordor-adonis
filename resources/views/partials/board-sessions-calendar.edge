@@ -1,0 +1,92 @@
+<div class="antialiased sans-serif">
+  <script>
+    window.sessions = []
+    @each(session in board.sessions)
+      window.sessions.push({
+        date: '{{session.date}}',
+        time: '{{session.time}}',
+        id: '{{session.id}}',
+        event_id: '{{session.$extras.event_id}}'
+      })
+    @endeach
+  </script>
+  @section('extra-style')
+    <style>
+      .scroll::-webkit-scrollbar {
+        width: 8px;
+      }
+    </style>
+  @endsection
+	<div x-data="boardSessionsCalendar" x-init="[initDate({{month}}), getNoOfDays(), setSessions(window.sessions)]" x-cloak>
+		<div class="container mx-auto md:px-4 py-2 mb-4">
+      <div class="bg-gray-900 rounded-lg shadow overflow-hidden">
+
+				<div class="text-center items-center py-2 mb-2 md:mb-10 px-6">
+					<div class=" font-title text-white sm:text-4xl text-2xl">
+						<span x-text="MONTH_NAMES[month]" class=""></span>
+						<span x-text="year" class="ml-1"></span>
+					</div>
+				</div>
+
+				<div class="mx-1 -mb-1">
+					<div class="font-text flex flex-wrap" style="margin-bottom: -40px;">
+						<template x-for="(day, index) in DAYS" :key="index">
+							<div style="width: 14.26%" class="py-10 px-2 md:py-2">
+								<div
+									x-text="day"
+									class="text-gray-50 text-sm uppercase tracking-wide font-bold text-center">
+                </div>
+							</div>
+						</template>
+					</div>
+					<div class=" font-title flex flex-wrap border-t border-l">
+						<template x-for="blankday in blankdays">
+							<div
+								style="width: 14.28%"
+								class=" text-center border-r border-b px-4 pt-2 h-24 md:h-32"
+							></div>
+						</template>
+						<template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
+							<div style="width: 14.28%" class="sm:px-1 pt-2 border-r border-b relative h-24 md:h-32">
+								<div
+                  x-text="date"
+                    class="inline-flex w-6 h-6 items-center justify-center text-center leading-none rounded-full transition ease-in-out duration-100"
+                    :class="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-50 hover:bg-gray-500': isToday(date) == false }"
+                  >
+                </div>
+                  <div style="height: 68%;" class="overflow-y-auto overflow-x-hidden scroll mt-1 mb-1 pr-1">
+                    <template x-for="session in sessions.filter(e => new Date(e.session_date).toDateString() ===  new Date(year, month, date).toDateString() )">
+                      <a x-bind:href="'/events/' + session.session_event_id" class="transition duration-100 hover:bg-gray-600 hover:border-gray-600 hover:text-white sm:pl-2 sm:pr-2 py-1 sm:rounded-lg rounded-md mt-1 overflow-hidden border-blue-100 text-gray-900 bg-blue-100 border font-extrabold lg:text-sm md:text-xs sm:text-2xs text-3xs md:font-bold truncate leading-tight block" x-text="session.session_time" >
+                      </a>
+                    </template>
+								  </div>
+							</div>
+						</template>
+
+          </div>
+
+        </div>
+        <div class="bg-gray-200 ">
+          <div class="justify-center space-x-3 text-white flex p-5 bg-gray-900" style="">
+            <button
+            type="button"
+            class="p-1 bg-gray-500 rounded-full "
+            @click="previous({{board.id}})">
+              <svg class="h-6 w-6 text-white "  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="p-1 bg-gray-500 rounded-full"
+              @click="next({{board.id}})">
+                <svg class="h-6 w-6 text-white "  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+          </div>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>
